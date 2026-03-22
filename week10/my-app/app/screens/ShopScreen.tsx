@@ -5,11 +5,11 @@ import { RootState, AppDispatch } from "../redux/StoreShop";
 import { addItem, removeItem, clearCart } from "../redux/ShoppingCart";
 
 const ShopScreen = () => {
-  // 1. ดึง State จาก Redux (เช็คชื่อตัวแปรใน Store ด้วยว่าตั้งว่า cart หรือ counter)
+  
   const cart = useSelector((state: RootState) => state.cart); 
   const dispatch = useDispatch<AppDispatch>();
 
-  // 2. Local State สำหรับเก็บค่าจาก Input
+
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState("");
   const [price, setPrice] = useState("");
@@ -17,13 +17,13 @@ const ShopScreen = () => {
   const handleAddItem = () => {
     if (name && quantity && price) {
       const newItem = {
-        id: Date.now().toString(), // สร้าง ID แบบสุ่ม
+        id: Date.now().toString(),
         name: name,
         quantity: parseInt(quantity),
         price: parseFloat(price),
       };
       dispatch(addItem(newItem));
-      // ล้างช่อง Input หลังเพิ่มเสร็จ
+
       setName("");
       setQuantity("");
       setPrice("");
@@ -34,7 +34,6 @@ const ShopScreen = () => {
     <View style={styles.container}>
       <Text style={styles.header}>index</Text>
 
-      {/* ส่วนกรอกข้อมูล ช่องสี่เหลี่ยม*/}
       <View style={styles.inputSection}>
         <TextInput style={styles.input} placeholder="ชื่อสินค้า" value={name} onChangeText={setName} />
         <TextInput style={styles.input} placeholder="จำนวน" value={quantity} keyboardType="numeric" onChangeText={setQuantity} />
@@ -45,7 +44,6 @@ const ShopScreen = () => {
         </TouchableOpacity>
       </View>
 
-      {/* ส่วนแสดงรายการสินค้า  เป้นช่องสีๆ  ใช้falst lisrt*/}
       <FlatList
         data={cart.items}
         keyExtractor={(item) => item.id}
@@ -64,11 +62,10 @@ const ShopScreen = () => {
         )}
       />
 
-      {/* ยอดรวมและปุ่มล้างตะกร้า */}
+      
       <View style={styles.footer}>
-        <Text style={styles.totalText}>ยอดรวม: {cart.totalAmount} บาท</Text>
+        
         <TouchableOpacity style={styles.clearButton} onPress={() => dispatch(clearCart())}>
-          <Text style={styles.buttonText}>ล้างตะกร้า</Text>
         </TouchableOpacity>
       </View>
     </View>

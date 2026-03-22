@@ -23,14 +23,13 @@ const todoSlice = createSlice({
     addTodo: (state, action: PayloadAction<Todo>) => {
       state.todos.push(action.payload);
     },
-    // สลับสถานะ (เสร็จแล้ว <-> ยังไม่เสร็จ)
+  
     toggleTodo: (state, action: PayloadAction<string>) => {
       const todo = state.todos.find((t) => t.id === action.payload);
       if (todo) {
         todo.completed = !todo.completed; // กลับค่า true เป็น false หรือ false เป็น true
       }
     },
-    // ลบงาน
     removeTodo: (state, action: PayloadAction<string>) => {
       state.todos = state.todos.filter((t) => t.id !== action.payload);
     },
